@@ -1,0 +1,7 @@
+index.html: This file will generally contain your homepage content, that is, the text and images that people see when they first go to your site.
+
+images folder: This folder will contain all the images that you use on your site.
+
+styles folder: This folder will contain the CSS code used to style your content (for example, setting text and background colors).
+
+scripts folder: This folder will contain all the JavaScript code used to add interactive functionality to your site (for example, defining what happens when buttons are clicked).
