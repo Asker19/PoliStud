@@ -8,3 +8,5 @@ button.addEventListener("click", () => {
 });
 
 // window.location.replace("https://");
+// window.location.href = 'newPage.html';
+// location.href = 'newPage.html';
