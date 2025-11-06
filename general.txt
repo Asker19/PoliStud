@@ -1,4 +1,4 @@
-index.html: This file will generally contain your homepage content, that is, the text and images that people see when they first go to your site.
+pages folder : holds pages and html files of the website (without CSS which is implemented later).
 
 images folder: This folder will contain all the images that you use on your site.
 
