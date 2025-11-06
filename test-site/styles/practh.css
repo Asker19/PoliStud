@@ -1,9 +1,17 @@
 #enterButton {
     font-size: 16px;
     border-radius: 12px;
-    background-color: #0071db;
+    background-color: #1d81df;
     color: white;
     padding: 18px 65px;
     border: none;
     margin: 550px 350px;
+    transition: all 0.2s ease;
+}
+#enterButton:hover{ 
+    transform: scale(1.04);
+}
+#enterButton:active{
+    background-color:#1776cf;
+
 }
