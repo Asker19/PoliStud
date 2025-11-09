@@ -1,30 +1,80 @@
 .all{
     font-family: 'Inter';
+    display: flex; 
+    flex-direction: row;
+    min-height: 100vh;
 }
 .content{
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+.subjects {
+    display: flex;
+    flex-direction: column;
+    gap: 12vh;
+    margin-top:7vh;
     align-items: center;
 }
-.subjects:hover{ 
+.subjects button:hover{ 
     transform: scale(1.04);
+    box-shadow: 0 14px 15px rgba(0, 0, 0, 0.5);
 }
-.subjects:active{
+.subjects button:active{
     background-color:#1776cf;
 }
-.subjects{
-    font-size: 25px;
+.subjects button {
+    font-size: 24px;
     border: none;
-    background-color: #0158FF;
-    border-radius: 12px;
+    background-color: #0146C7;
+    border-radius: 25px;
     transition: all 0.2s ease;
+    color: white;
+    width: 70vw;
+    height: 10.5vh;
+    box-shadow: 3px 12px 12px rgba(0, 0, 0, 0.3); 
 }
 .header{
+    display: flex;
     background-color: #A2B4D7;
-    width: 80%;
+    width: 100%;
     height: 70px;
+    align-items: center;
+    
 }
 #mpname{
     color: #041A54;
     font-size: 30px;
-    padding: 0px 73px;
+    padding-left: 73px;
+}
+#aboutus {
+    text-decoration: none; 
+    font-size: 15px;
+    margin-left: auto;
+    padding-right: 80px;
+    color: white;
+    cursor: pointer;
+}
+#abouted {
+    text-decoration: none; 
+    font-size: 15px;
+    padding-right: 45px;
+    color: white;
+    cursor: pointer;
+}
+#aboutus:hover, #abouted:hover {
+    text-decoration: underline;
+}
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    border-right: 1px solid #000000
+}
+#lodo {
+    width: 30px;
+    height: auto;
+    margin: 5vh 5vw;
 }

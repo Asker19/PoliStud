@@ -21,7 +21,8 @@
     border-radius: 12px;
     background-color: #0158FF;
     color: white;
-    padding: 18px 65px;
+    width: 200px;
+    height: 50px;
     border: none;
     position: absolute;
     top: 70vh;
