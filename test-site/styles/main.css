@@ -1,0 +1,30 @@
+.all{
+    font-family: 'Inter';
+}
+.content{
+    display: flex;
+    align-items: center;
+}
+.subjects:hover{ 
+    transform: scale(1.04);
+}
+.subjects:active{
+    background-color:#1776cf;
+}
+.subjects{
+    font-size: 25px;
+    border: none;
+    background-color: #0158FF;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+.header{
+    background-color: #A2B4D7;
+    width: 80%;
+    height: 70px;
+}
+#mpname{
+    color: #041A54;
+    font-size: 30px;
+    padding: 0px 73px;
+}

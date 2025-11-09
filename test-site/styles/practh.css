@@ -1,18 +1,18 @@
 #headline {
-    font-size: 50px;
-    font-family: 'Baloo Bhai', regular;
-    font-weight:600;
+    font-size: 75px;
+    font-family: 'Baloo Bhai 2', regular;
+    font-weight:800;
     color: black;
     position: absolute;
-    top: 200px;
-    left: 415px;
+    top: 19vh;
+    left: 24vw;
 }
 #text1 {
     position: absolute;
-    top: 300px;
-    left: 190px;
+    top: 35vh;
+    left: 10.3vw;
     font-size: 30px;
-    font-family: Montserrat;
+    font-family: 'Inter', regular;
     color: black;
     text-align: center;
 }
@@ -24,8 +24,8 @@
     padding: 18px 65px;
     border: none;
     position: absolute;
-    top: 700px;
-    left: 415px;
+    top: 70vh;
+    left: 26vw;
     transition: all 0.2s ease;
 }
 #enterButton:hover{ 
@@ -39,4 +39,12 @@ body {
   background-repeat: no-repeat;   
   background-size: cover;         
     
+}
+#landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  justify-content: center;
+  padding-left: 200px; 
+  height: 100vh;
 }
