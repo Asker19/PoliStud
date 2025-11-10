@@ -2,6 +2,7 @@
 // const aiAssistantbutton = document.getElementById("asAssistantButton");
 // const aboutUsButton = document.getElementById("aboutUsButton");
 // const aboutStudyButton = document.getElementById("aboutStudyButton");
+
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
 
