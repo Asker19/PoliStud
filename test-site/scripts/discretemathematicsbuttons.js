@@ -8,7 +8,7 @@ const backButton = document.getElementById("backbtn");
 const graphTheoryButton = document.getElementById("graphbtn");
 const mathLogicsButton = document.getElementById("mathlogicsbtn");
 const combinatoricsButton = document.getElementById("combinatoricsbtn");
-const setTheoryButton = document.getElementById("setsbtn");
+//const setTheoryButton = document.getElementById("setsbtn");
 
 
 
@@ -34,6 +34,6 @@ combinatoricsButton.addEventListener("click", () => {
   window.location.href = '../pages/combinatorics.html'
 });
 
-setTheoryButton.addEventListener("click", () => {
-  window.location.href = '../pages/sets.html'
-});
+// setTheoryButton.addEventListener("click", () => {
+//   window.location.href = '../pages/sets.html'
+// });
