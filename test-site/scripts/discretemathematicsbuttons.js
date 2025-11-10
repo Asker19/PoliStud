@@ -27,11 +27,9 @@ graphTheoryButton.addEventListener("click", () => {
 });
 
 /*
-
 mathLogicsButton.addEventListener("click", () => {
   window.location.href = '../pages/mathlogics.html'
 });
-
 */
 
 combinatoricsButton.addEventListener("click", () => {
