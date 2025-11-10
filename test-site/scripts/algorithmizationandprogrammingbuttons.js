@@ -9,7 +9,7 @@ const backButton = document.getElementById("backbtn");
 const b1 = document.getElementById("b1");
 const b2 = document.getElementById("b2");
 const b3 = document.getElementById("b3");
-const b4 = document.getElementById("b4");
+// const b4 = document.getElementById("b4");
 
 
 
@@ -35,6 +35,6 @@ b3.addEventListener("click", () => {
   window.location.href = '../pages/.html'
 });
 
-b4.addEventListener("click", () => {
+/* b4.addEventListener("click", () => {
   window.location.href = '../pages/.html'
-});
+}); */
