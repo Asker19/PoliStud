@@ -33,13 +33,14 @@
 .subjects button {
     font-size: 24px;
     border: none;
-    background-color: #0146C7;
+    background-color: white;
     border-radius: 25px;
     transition: all 0.2s ease;
-    color: white;
+    color: #041A54;
     width: 70vw;
     height: 10.5vh;
-    box-shadow: 3px 12px 12px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+ 
 }
 
 .header{
