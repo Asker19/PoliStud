@@ -4,6 +4,7 @@
 // const aboutStudyButton = document.getElementById("aboutStudyButton");
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
+
 const graphTheoryButton = document.getElementById("graphbtn");
 const mathLogicsButton = document.getElementById("mathlogicsbtn");
 const combinatoricsButton = document.getElementById("combinatoricsbtn");
@@ -22,15 +23,15 @@ backButton.addEventListener("click", () => {
 
 
 graphTheoryButton.addEventListener("click", () => {
-  window.location.href = '../pages/determinators.html'
+  window.location.href = '../pages/graphs.html'
 });
 
 mathLogicsButton.addEventListener("click", () => {
-  window.location.href = '../pages/matrixes.html'
+  window.location.href = '../pages/mathlogics.html'
 });
 
 combinatoricsButton.addEventListener("click", () => {
-  window.location.href = '../pages/slar.html'
+  window.location.href = '../pages/combinatorics.html'
 });
 
 setTheoryButton.addEventListener("click", () => {
