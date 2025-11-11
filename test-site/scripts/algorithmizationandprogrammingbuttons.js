@@ -6,9 +6,9 @@
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
 
-const b1 = document.getElementById("b1");
-const b2 = document.getElementById("b2");
-const b3 = document.getElementById("b3");
+const numberLogicsButton = document.getElementById("numberlogicsbutton");
+const algorithmStructuresButton = document.getElementById("algorithmstructuresbutton");
+const CProgramming = document.getElementById("cprogramming");
 // const b4 = document.getElementById("b4");
 
 
@@ -23,16 +23,16 @@ backButton.addEventListener("click", () => {
 
 
 
-b1.addEventListener("click", () => {
-  window.location.href = '../pages/.html'
+numberLogicsButton.addEventListener("click", () => {
+  window.location.href = '../pages/numberlogicsbutton.html'
 });
 
-b2.addEventListener("click", () => {
-  window.location.href = '../pages/.html'
+algorithmStructuresButton.addEventListener("click", () => {
+  window.location.href = '../pages/algorithmstructuresbutton.html'
 });
 
-b3.addEventListener("click", () => {
-  window.location.href = '../pages/.html'
+CProgramming.addEventListener("click", () => {
+  window.location.href = '../pages/cprogramming.html'
 });
 
 /* b4.addEventListener("click", () => {
