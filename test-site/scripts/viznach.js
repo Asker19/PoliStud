@@ -18,11 +18,12 @@ function onYouTubeIframeAPIReady() {
 }
 
 // Функція, яка спрацьовує коли плеєр готовий
-/*
-function onPlayerReady(event) {
 
+function onPlayerReady(event) {
+  event.target.pauseVideo();
+  event.target.setVolume(30);
 }
-*/
+
 
 // Кнопки керування
 /*
