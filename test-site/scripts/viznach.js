@@ -1,0 +1,34 @@
+let tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+let firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+let player;
+
+// Ця функція викликається API, коли він готовий
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '467',
+    width: '830',
+    videoId: 'ABC123xyz',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+// Функція, яка спрацьовує коли плеєр готовий
+/*
+function onPlayerReady(event) {
+
+}
+*/
+
+// Кнопки керування
+document.getElementById('playBtn').addEventListener('click', () => {
+  player.playVideo();
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  player.pauseVideo();
+});
