@@ -38,11 +38,17 @@ function onPlayerReady(event) {
 document.querySelectorAll("video-btn").forEach(btn => {
   const id = btn.database.video;
   const img = document.createElement("img");
+  const title = btn.dataset.title;
+  
   img.src = "https://img.youtube.com/vi/${id}/hqdefault.jpg";
 
+  const span = document.createElement("span");
+  span.textContent = title;
+
   btn.appendChild(img);
+  btn.appendChild(span);
 
   btn.addEventListener("click", () => {
     player.loadVideoById(id);
-  })  
+  });
 });
