@@ -40,7 +40,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
   const img = document.createElement("img");
   const title = btn.dataset.title;
   
-  img.src = "https://img.youtube.com/vi/${id}/hqdefault.jpg";
+  img.src = 'https://img.youtube.com/vi/${id}/hqdefault.jpg';
 
   const span = document.createElement("span");
   span.textContent = title;
