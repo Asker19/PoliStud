@@ -35,8 +35,8 @@ function onPlayerReady(event) {
   event.target.setVolume(30);
 }
 
-document.querySelectorAll("video-btn").forEach(btn => {
-  const id = btn.database.video;
+document.querySelectorAll(".video-btn").forEach(btn => {
+  const id = btn.dataset.video;
   const img = document.createElement("img");
   const title = btn.dataset.title;
   
