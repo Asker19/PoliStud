@@ -29,7 +29,7 @@ backButton.addEventListener("click", () => {
 
 
 determinatorsButton.addEventListener("click", () => {
-  window.location.href = '../pages/determinators.html'
+  window.location.href = '../pages/viznach.html'
 });
 
 matrixesButton.addEventListener("click", () => {
