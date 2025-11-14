@@ -35,14 +35,14 @@ function onPlayerReady(event) {
   event.target.setVolume(30);
 }
 
+document.querySelectorAll("video-btn").forEach(btn => {
+  const id = btn.database.video;
+  const img = document.createElement("img");
+  img.src = "https://img.youtube.com/vi/${id}/hqdefault.jpg";
 
-// Кнопки керування
-/*
-document.getElementById('playBtn').addEventListener('click', () => {
-  player.playVideo();
-});
+  btn.appendChild(img);
 
-document.getElementById('pauseBtn').addEventListener('click', () => {
-  player.pauseVideo();
+  btn.addEventListener("click", () => {
+    player.loadVideoById(id);
+  })  
 });
-*/
