@@ -1,9 +1,20 @@
+const toMainButton = document.getElementById("mainbutton");
+const backButton = document.getElementById("backbtn");
+
 let tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 let firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 let player;
+
+toMainButton.addEventListener("click", () => {
+  window.location.href = '../pages/main.html'
+});
+
+backButton.addEventListener("click", () => { 
+  window.history.back();
+});
 
 // Ця функція викликається API, коли він готовий
 function onYouTubeIframeAPIReady() {
