@@ -11,7 +11,6 @@ function onYouTubeIframeAPIReady() {
     height: '467',
     width: '830',
     videoId: '8s5OEx9xJBo',
-    videoId: '8s5OEx9xJBo',
     events: {
       'onReady': onPlayerReady
     }
@@ -20,18 +19,13 @@ function onYouTubeIframeAPIReady() {
 
 // Функція, яка спрацьовує коли плеєр готовий
 
-
 function onPlayerReady(event) {
-  event.target.pauseVideo();
-  event.target.setVolume(30);
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
 
 
-
 // Кнопки керування
-/*
 /*
 document.getElementById('playBtn').addEventListener('click', () => {
   player.playVideo();
