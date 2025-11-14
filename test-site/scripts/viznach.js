@@ -49,6 +49,14 @@ document.querySelectorAll(".video-btn").forEach(btn => {
   btn.appendChild(span);
 
   btn.addEventListener("click", () => {
-    player.loadVideoById(id);
+    const currentVideoId = player.getVideoData().video_id;
+    const currentVideoTitle = player.getVideoData().title;
+
+    const newVideoId = btn.dataset.video;
+    
+    player.loadVideoById(newVideoId);
+
+    btn.dataset.video = currentVideoId;
+    
   });
 });
