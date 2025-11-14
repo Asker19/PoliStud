@@ -10,7 +10,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '467',
     width: '830',
-    videoId: 'ABC123xyz',
+    videoId: '8s5OEx9xJBo',
     events: {
       'onReady': onPlayerReady
     }
@@ -18,13 +18,15 @@ function onYouTubeIframeAPIReady() {
 }
 
 // Функція, яка спрацьовує коли плеєр готовий
-/*
-function onPlayerReady(event) {
 
+function onPlayerReady(event) {
+  event.target.pauseVideo();
+  event.target.setVolume(30);
 }
-*/
+
 
 // Кнопки керування
+/*
 document.getElementById('playBtn').addEventListener('click', () => {
   player.playVideo();
 });
@@ -32,3 +34,4 @@ document.getElementById('playBtn').addEventListener('click', () => {
 document.getElementById('pauseBtn').addEventListener('click', () => {
   player.pauseVideo();
 });
+*/
