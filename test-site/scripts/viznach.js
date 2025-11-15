@@ -53,18 +53,16 @@ document.querySelectorAll(".video-btn").forEach(btn => {
     const currentVideoTitle = player.getVideoData().title;
 
     const newVideoId = btn.dataset.video;
-    
+
     player.loadVideoById(newVideoId);
 
     btn.dataset.video = currentVideoId;
+    btn.dataset.title = currentVideoTitle;
 
     const img = btn.querySelector("img");
-    img.src = 'https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg';
-    let span = btn.querySelector("span");
-    if(!span){
-      span = document.createElement("span");
-      btn.appendChild(span);
-    }
-    span.textContent = currentTitle;
+    img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
+
+    const span = btn.querySelector("span");
+    span.textContent = currentVideoTitle;
   });
 });
