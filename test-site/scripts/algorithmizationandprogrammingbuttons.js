@@ -24,11 +24,11 @@ backButton.addEventListener("click", () => {
 
 
 numberLogicsButton.addEventListener("click", () => {
-  window.location.href = '../pages/numberlogicsbutton.html'
+  window.location.href = '../pages/numberlogics.html'
 });
 
 algorithmStructuresButton.addEventListener("click", () => {
-  window.location.href = '../pages/algorithmstructuresbutton.html'
+  window.location.href = '../pages/algorithmstructures.html'
 });
 
 CProgramming.addEventListener("click", () => {
