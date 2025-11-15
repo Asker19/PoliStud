@@ -11,35 +11,7 @@
         flex-grow: 1;
         justify-content: flex-start;
         min-height: 100vh;
-    }
-
-    .subjects {
-        display: flex;
-        flex-direction: column;
-        gap: 12vh;
-        margin-top:7vh;
-        align-items: center;
-    }
-
-    .subjects button:hover{ 
-        transform: scale(1.04);
-        box-shadow: 0 14px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .subjects button:active{
-        background-color:#1776cf;
-    }
-
-    .subjects button {
-        font-size: 24px;
-        border: none;
-        background-color: #0146C7;
-        border-radius: 25px;
-        transition: all 0.2s ease;
-        color: white;
-        width: 70vw;
-        height: 10.5vh;
-        box-shadow: 3px 12px 12px rgba(0, 0, 0, 0.3); 
+        width: 80%
     }
 
     .header{
@@ -79,7 +51,7 @@
     .sidebar {
         display: flex;
         flex-direction: column;
-        width: 20vw;
+        width: 20%;
         border-right: 1px solid #000000
     }
 
@@ -130,16 +102,16 @@
     }
 
     #backbtn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: none;
-    font-family: 'Inter';
-    font-size: 16px;
-    color: #041A54;
-    cursor: pointer;
-    margin: 50vh 0vw 0 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        font-family: 'Inter';
+        font-size: 16px;
+        color: #041A54;
+        cursor: pointer;
+        margin: 50vh 0vw 0 0;
     }
 
     .back-btn:hover {
@@ -150,16 +122,18 @@
     width: 40px;
     height: auto;
     }
+
     .insidebar {
         display: flex;
         flex-direction: column;
         gap: 2vh;   
         align-items: center;
         width: 20%;
+        height: fit-content;
     }
     .insidebar button {
-        width: 15vw;
-        height: auto;
+        width: 100%;
+        height: fit-content;
         background: none;
         border: none;
         cursor: pointer;
@@ -169,7 +143,7 @@
         
     }
     .insidebar button:first-child {
-    margin-top: 4vh;
+        margin-top: 3vh;
     }
 
     .insidebar button img {
@@ -191,7 +165,7 @@
         line-height: 1.2;
     }
 
-    .inside {
+    .inside {   
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -206,9 +180,49 @@
     }
 
     #player {
-        width: 90%;
+        width: 94.5%;
         height: 60vh;
-        margin-top: 5vh;
+        margin-top: 3vh;
         border: none;
-        border-radius: 12px;
+        border-radius: 15px;
+    }
+
+    #genconspectback {
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+        background-color: rgb(213, 212, 212);
+        border-radius: 20px;
+        height: fit-content;
+        width: 94.5%;
+        display:flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 3vh 2vw;
+    }   
+
+    #genconspectbutton {
+        border: none;
+        border-radius: 25px;
+        margin-top: 1px;
+        margin-left: 0px;
+        margin-right: auto;
+        background-color: #041A54;
+        color: white;
+        font-size: 15px;
+        width: 12.5vw;
+        height: 5.5vh;
+        transition: all 0.2s ease;
+    }
+
+    #genconspectbutton:hover {
+        transform: scale(1.04);
+    }
+
+    #conspect {
+        margin-top: 3vh;
+        font-size: 15px;
+        color: black;
+        overflow-wrap: break-word;
+        white-space: normal;
+        
     }

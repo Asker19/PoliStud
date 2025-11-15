@@ -11,6 +11,7 @@
     flex-grow: 1;
     justify-content: flex-start;
     min-height: 100vh;
+    width: 20%;
 }
 
 .subjects {
@@ -82,7 +83,7 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    width: 20vw;
+    width: 20%;
     border-right: 1px solid #000000
 }
 
