@@ -9,7 +9,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let player;
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../pages/main.html'
+  window.location.href = '../../../pages/main.html'
 });
 
 backButton.addEventListener("click", () => { 

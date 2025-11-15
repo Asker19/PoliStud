@@ -29,7 +29,7 @@ backButton.addEventListener("click", () => {
 
 
 determinatorsButton.addEventListener("click", () => {
-  window.location.href = '../pages/viznach.html'
+  window.location.href = '../pages/subjects/algebraandgeometry/viznach.html'
 });
 
 matrixesButton.addEventListener("click", () => {

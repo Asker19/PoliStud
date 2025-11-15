@@ -11,7 +11,8 @@
     flex-grow: 1;
     justify-content: flex-start;
     min-height: 100vh;
-    width: 20%;
+    width: 80%;
+    margin-left: 20%;
 }
 
 .subjects {
@@ -81,7 +82,13 @@
     display: flex;
     flex-direction: column;
     width: 20%;
-    border-right: 1px solid #000000
+    border-right: 1px solid #000000;
+    position: fixed;   
+    top: 0;          
+    left: 0;         
+    height: 100vh;    
+    background-color: #fff; 
+    z-index: 100;
 }
 
 #logo {
@@ -128,6 +135,7 @@
     border-radius: 18px;
     width: 9vw;
     height: 4vh;
+    margin: 0vh 1vw;
 }
 
 #backbtn {

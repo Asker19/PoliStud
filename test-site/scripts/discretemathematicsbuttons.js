@@ -5,7 +5,7 @@
 
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
-
+ 
 const graphTheoryButton = document.getElementById("graphbtn");
 const mathLogicsButton = document.getElementById("mathlogicsbtn");
 const combinatoricsButton = document.getElementById("combinatoricsbtn");
