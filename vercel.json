@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/pages/practh.html"
+    }
+  ],
+  "cleanUrls": false,
+  "trailingSlash": false
+}
+
