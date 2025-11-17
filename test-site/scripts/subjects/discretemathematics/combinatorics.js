@@ -68,6 +68,26 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 const genBtn = document.getElementById("genconspectbutton");
 const conspect = document.getElementById("conspect");
 const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20";
+import { GoogleGenerativeAI } from "@GoogleGenerativeAI";
+
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+const prompt = "Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.";
+
+async function getGeminiResponse() 
+{
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    conspect.textContent = text;
+  } catch (error) {
+    conspect.textContent = "Помилка під час генерації конспекту.";
+    console.error(err);
+  }
+}
+
+
 
 genBtn.addEventListener("click", async () => {
   if (!player) {
@@ -80,23 +100,23 @@ genBtn.addEventListener("click", async () => {
 
   conspect.textContent = "Генерація конспекту...";
 
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
-      }
-    );
+  getGeminiResponse();
 
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
+  /*
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+    {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
+    }
+  );
 
-    conspect.innerHTML = text.replace(/\n/g, "<br>");
-  } catch (err) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
-    console.error(err);
-  }
+  const data = await response.json();
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
+
+  conspect.innerHTML = text.replace(/\n/g, "<br>");
+  */
+
 });
 
