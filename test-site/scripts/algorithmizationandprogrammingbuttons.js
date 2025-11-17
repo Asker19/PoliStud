@@ -6,10 +6,10 @@
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
 
-const numberLogicsButton = document.getElementById("numberlogicsbutton");
-const algorithmStructuresButton = document.getElementById("algorithmstructuresbutton");
-const CProgramming = document.getElementById("cprogramming");
-// const b4 = document.getElementById("b4");
+const numberLogicsButton = document.getElementById("b1");
+const algorithmStructuresButton = document.getElementById("b2");
+const CProgramming = document.getElementById("b3");
+const managementoperators = document.getElementById("b4");
 
 
 
@@ -24,17 +24,21 @@ backButton.addEventListener("click", () => {
 
 
 numberLogicsButton.addEventListener("click", () => {
-  window.location.href = '../pages/numberlogics.html'
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/numberlogics.html'
 });
 
 algorithmStructuresButton.addEventListener("click", () => {
-  window.location.href = '../pages/algorithmstructures.html'
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/algorithmstructures.html'
 });
 
 CProgramming.addEventListener("click", () => {
-  window.location.href = '../pages/cprogramming.html'
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/cprogramming.html'
 });
 
-/* b4.addEventListener("click", () => {
-  window.location.href = '../pages/.html'
-}); */
+managementoperators.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/managementoperators.html'
+}); 
+
+.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/.html'
+}); 
