@@ -24,17 +24,17 @@ backButton.addEventListener("click", () => {
 
 
 graphTheoryButton.addEventListener("click", () => {
-  window.location.href = '../pages/graphs.html'
+  window.location.href = '../pages/subjects/discretemathematics/graphs.html'
 });
 
 mathLogicsButton.addEventListener("click", () => {
-  window.location.href = '../pages/mathlogics.html'
+  window.location.href = '../pages/subjects/discretemathematics/mathlogics.html'
 });
 
 combinatoricsButton.addEventListener("click", () => {
-  window.location.href = '../pages/combinatorics.html'
+  window.location.href = '../pages/subjects/discretemathematics/combinatorics.html'
 });
 
 setTheoryButton.addEventListener("click", () => {
-  window.location.href = '../pages/sets.html'
+  window.location.href = '../pages/subjects/discretemathematics/sets.html'
 });
