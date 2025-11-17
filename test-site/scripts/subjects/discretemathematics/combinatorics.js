@@ -72,10 +72,11 @@ import { GoogleGenerativeAI } from "@GoogleGenerativeAI";
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-const prompt = "Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.";
 
-async function getGeminiResponse() 
+async function getGeminiResponse()
 {
+  videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+  const prompt = `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`;
   try {
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -87,16 +88,11 @@ async function getGeminiResponse()
   }
 }
 
-
-
 genBtn.addEventListener("click", async () => {
   if (!player) {
     conspect.textContent = "Плеєр ще не готовий!";
     return;
   }
-
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
 
   conspect.textContent = "Генерація конспекту...";
 
