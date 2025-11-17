@@ -54,6 +54,22 @@ processingtwodimensionalarrays.addEventListener("click", () => {
   window.location.href = '../pages/subjects/algorithmizationandprogramming/processingtwodimensionalarrays.html';
 });
 
-b.addEventListener("click", () => {
-  window.location.href = '../pages/subjects/algorithmizationandprogramming/.html';
+charactersandcharacterstrings.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/charactersandcharacterstrings.html';
+});
+
+functionsinc.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/functionsinc.html';
+});
+
+workingwithfiles.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/workingwithfilestheconceptofstreams.html';
+});
+
+structuresandassociacions.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/structuresandassociacions.html';
+});
+
+classesandobjects.addEventListener("click", () => {
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/classesandobjects.html';
 });
