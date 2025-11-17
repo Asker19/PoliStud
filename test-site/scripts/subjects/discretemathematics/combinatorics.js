@@ -1,4 +1,4 @@
-
+import { GoogleGenerativeAI } from "@GoogleGenerativeAI";
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
 
@@ -67,29 +67,11 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
 const genBtn = document.getElementById("genconspectbutton");
 const conspect = document.getElementById("conspect");
-const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20";
-import { GoogleGenerativeAI } from "@GoogleGenerativeAI";
-
+const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20"
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-async function getGeminiResponse()
-{
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
-  const prompt = `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`;
-  try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    conspect.textContent = text;
-  } catch (error) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
-    console.error(err);
-  }
-}
-
-genBtn.addEventListener("click", () => {
+genBtn.addEventListener("click",async () => {
   if (!player) {
     conspect.textContent = "Плеєр ще не готовий!";
     return;
@@ -97,7 +79,20 @@ genBtn.addEventListener("click", () => {
 
   conspect.textContent = "Генерація конспекту...";
 
-  getGeminiResponse();
+  const currentVideoId = player.getVideoData().video_id;
+  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+
+  const prompt = `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`;
+
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    conspect.textContent = text;
+  } catch (error) {
+    conspect.textContent = "Помилка під час генерації конспекту.";
+    console.error(error);
+  }
 
   /*
   const response = await fetch(
