@@ -75,7 +75,8 @@ const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 async function getGeminiResponse()
 {
-  videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+  const currentVideoId = player.getVideoData().video_id;
+  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
   const prompt = `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`;
   try {
     const result = await model.generateContent(prompt);
@@ -88,7 +89,7 @@ async function getGeminiResponse()
   }
 }
 
-genBtn.addEventListener("click", async () => {
+genBtn.addEventListener("click", () => {
   if (!player) {
     conspect.textContent = "Плеєр ще не готовий!";
     return;
