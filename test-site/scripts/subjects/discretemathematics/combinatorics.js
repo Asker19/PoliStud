@@ -1,4 +1,3 @@
-import { GoogleGenerativeAI } from "@GoogleGenerativeAI";
 const toMainButton = document.getElementById("mainbutton");
 const backButton = document.getElementById("backbtn");
 
@@ -10,7 +9,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let player;
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../../../pages/main.html'
+  window.location.href = '../../../pages/main.html';
 });
 
 backButton.addEventListener("click", () => { 
@@ -22,9 +21,7 @@ function onYouTubeIframeAPIReady() {
     height: '467',
     width: '830',
     videoId: 'BLIy6U7BJIU',
-    events: {
-      'onReady': onPlayerReady
-    }
+    events: { 'onReady': onPlayerReady }
   });
 }
 
@@ -48,7 +45,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
   btn.addEventListener("click", () => {
     const currentVideoId = player.getVideoData().video_id;
-    const currentVideoTitle = player.getVideoData().title;
+    const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
 
     const newVideoId = btn.dataset.video;
 
@@ -64,51 +61,3 @@ document.querySelectorAll(".video-btn").forEach(btn => {
     span.textContent = currentVideoTitle;
   });
 });
-
-const genBtn = document.getElementById("genconspectbutton");
-const conspect = document.getElementById("conspect");
-const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20"
-const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-genBtn.addEventListener("click",async () => {
-  if (!player) {
-    conspect.textContent = "Плеєр ще не готовий!";
-    return;
-  }
-
-  conspect.textContent = "Генерація конспекту...";
-
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
-
-  const prompt = `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`;
-
-  try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    conspect.textContent = text;
-  } catch (error) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
-    console.error(error);
-  }
-
-  /*
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-    {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
-    }
-  );
-
-  const data = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
-
-  conspect.innerHTML = text.replace(/\n/g, "<br>");
-  */
-
-});
-
