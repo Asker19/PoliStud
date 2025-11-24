@@ -65,7 +65,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 });
 
 
-const API_KEY = ".........";
+const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
