@@ -9,7 +9,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let player;
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../../../pages/main.html'
+  window.location.href = '../../../pages/main.html';
 });
 
 backButton.addEventListener("click", () => { 
@@ -47,7 +47,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
   btn.addEventListener("click", () => {
     const currentVideoId = player.getVideoData().video_id;
-    const currentVideoTitle = player.getVideoData().title;
+    const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
 
     const newVideoId = btn.dataset.video;
 
@@ -64,37 +64,83 @@ document.querySelectorAll(".video-btn").forEach(btn => {
   });
 });
 
-const genBtn = document.getElementById("genconspectbutton");
-const conspect = document.getElementById("conspect");
-const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20";
 
-genBtn.addEventListener("click", async () => {
-  if (!player) {
-    conspect.textContent = "Плеєр ще не готовий!";
-    return;
-  }
+const API_KEY = ".........";
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+const sendBtn = document.getElementById('sendBtn');
+const clearBtn = document.getElementById('clearBtn');
+const inputBox = document.getElementById('msg');
+const chatMessages = document.getElementById('chat-messages');
 
-  conspect.textContent = "Генерація конспекту...";
+let generating = false;
+
+window.addEventListener("load", () => {
+  const history = localStorage.getItem('chatHistory');
+  if (history) chatMessages.innerHTML = history;
+});
+
+sendBtn.addEventListener('click', async () => {
+  if (generating) return;
+  const prompt = inputBox.value;
+  if (!prompt) return;
+
+  generating = true;
+
+  const userMsg = document.createElement('div');
+  userMsg.classList.add('msg', 'user');
+  userMsg.textContent = prompt;
+  chatMessages.appendChild(userMsg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  inputBox.value = '';
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
-      }
-    );
+    const result = await model.generateContent(prompt);
 
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
+    const botMsg = document.createElement('div');
+    botMsg.classList.add('msg');
+    botMsg.textContent = result.response.text();
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    conspect.innerHTML = text.replace(/\n/g, "<br>");
-  } catch (err) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
-    console.error(err);
-  }
+    localStorage.setItem('chatHistory', chatMessages.innerHTML);
+  } catch (err) {}
+
+  generating = false;
+});
+
+inputBox.addEventListener('keydown', async (e) => {
+  if (e.key !== 'Enter' || generating) return;
+
+  const prompt = inputBox.value;
+  if (!prompt) return;
+
+  generating = true;
+
+  const userMsg = document.createElement('div');
+  userMsg.classList.add('msg', 'user');
+  userMsg.textContent = prompt;
+  chatMessages.appendChild(userMsg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  inputBox.value = '';
+
+  try {
+    const result = await model.generateContent(prompt);
+
+    const botMsg = document.createElement('div');
+    botMsg.classList.add('msg');
+    botMsg.textContent = result.response.text();
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    localStorage.setItem('chatHistory', chatMessages.innerHTML);
+  } catch (err) {}
+
+  generating = false;
+});
+
+clearBtn.addEventListener('click', () => {
+  chatMessages.innerHTML = '';
+  localStorage.removeItem('chatHistory');
 });

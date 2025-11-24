@@ -47,7 +47,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
   btn.addEventListener("click", () => {
     const currentVideoId = player.getVideoData().video_id;
-    const currentVideoTitle = player.getVideoData().title;
+    const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
 
     const newVideoId = btn.dataset.video;
 
@@ -63,39 +63,3 @@ document.querySelectorAll(".video-btn").forEach(btn => {
     span.textContent = currentVideoTitle;
   });
 });
-
-const genBtn = document.getElementById("genconspectbutton");
-const conspect = document.getElementById("conspect");
-const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20";
-
-genBtn.addEventListener("click", async () => {
-  if (!player) {
-    conspect.textContent = "Плеєр ще не готовий!";
-    return;
-  }
-
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
-
-  conspect.textContent = "Генерація конспекту...";
-
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
-      }
-    );
-
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
-
-    conspect.innerHTML = text.replace(/\n/g, "<br>");
-  } catch (err) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
-    console.error(err);
-  }
-});
-
