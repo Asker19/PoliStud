@@ -78,30 +78,50 @@ const chatMessages = document.getElementById('chat-messages');
 
 let generating = false;
 
-// Завантаження історії
+// ------------------- ІСТОРІЯ ЧАТУ (JSON) -------------------
+let history = [];
+
+// Завантаження
 window.addEventListener("load", () => {
-  const history = localStorage.getItem('chatHistory');
-  if (history) chatMessages.innerHTML = history;
+  const saved = localStorage.getItem('chatHistory');
+
+  if (saved) {
+    history = JSON.parse(saved);
+
+    history.forEach(msg => {
+      const el = createMsg(msg.text, msg.type);
+      chatMessages.appendChild(el);
+    });
+  }
 });
 
-// ------------------- Функції -------------------
+// ------------------- Відправка -------------------
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
+  // юзер повідомлення
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  history.push({ text: prompt, type: "user" });
+  saveHistory();
+
   inputBox.value = '';
 
   try {
     const result = await model.generateContent(prompt);
+    const botText = result.response.text();
 
-    const botMsg = createMsg(result.response.text(), '');
+    // бот повідомлення
+    const botMsg = createMsg(botText, 'bot');
     chatMessages.appendChild(botMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    localStorage.setItem('chatHistory', chatMessages.innerHTML);
+    history.push({ text: botText, type: "bot" });
+    saveHistory();
+
   } catch (err) {
     console.error(err);
   }
@@ -109,20 +129,24 @@ async function sendMessage(prompt) {
   generating = false;
 }
 
-// Створення повідомлення з анімацією fadeIn
-function createMsg(text, userClass) {
+// ------------------- Збереження -------------------
+function saveHistory() {
+  localStorage.setItem("chatHistory", JSON.stringify(history));
+}
+
+// ------------------- Створення елементів -------------------
+function createMsg(text, type) {
   const msg = document.createElement('div');
-  msg.classList.add('msg');
-  if (userClass) msg.classList.add(userClass);
+  msg.classList.add('msg', type);
   msg.textContent = text;
 
-  msg.offsetWidth; 
+  msg.offsetWidth;
   msg.style.animation = 'fadeIn 0.3s forwards';
 
   return msg;
 }
 
-// Події
+// ------------------- Події -------------------
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
 
 inputBox.addEventListener('keydown', (e) => {
@@ -131,5 +155,6 @@ inputBox.addEventListener('keydown', (e) => {
 
 clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
+  history = [];
   localStorage.removeItem('chatHistory');
 });
