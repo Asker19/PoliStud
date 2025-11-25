@@ -1,5 +1,5 @@
+// ------------------- YouTube -------------------
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
 
 let tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
@@ -9,24 +9,22 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let player;
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../../../pages/main.html'
+  window.location.href = '../../../pages/main.html';
 });
 
-backButton.addEventListener("click", () => { 
-  window.history.back();
-});
-
-function onYouTubeIframeAPIReady() {
+// робимо глобальною
+window.onYouTubeIframeAPIReady = function() {
   player = new YT.Player('player', {
     height: '467',
     width: '830',
-    videoId: '8s5OEx9xJBo',
+    videoId: '8s5OEx9xJBo', // початкове відео
     events: {
       'onReady': onPlayerReady
     }
   });
 }
 
+// теж можна глобально, але не обов'язково
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
@@ -35,7 +33,7 @@ function onPlayerReady(event) {
 document.querySelectorAll(".video-btn").forEach(btn => {
   const id = btn.dataset.video;
   const title = btn.dataset.title;
-  
+
   const img = document.createElement("img");
   img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
@@ -47,7 +45,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
   btn.addEventListener("click", () => {
     const currentVideoId = player.getVideoData().video_id;
-    const currentVideoTitle = player.getVideoData().title;
+    const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
 
     const newVideoId = btn.dataset.video;
 
@@ -64,37 +62,74 @@ document.querySelectorAll(".video-btn").forEach(btn => {
   });
 });
 
-const genBtn = document.getElementById("genconspectbutton");
-const conspect = document.getElementById("conspect");
-const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20";
 
-genBtn.addEventListener("click", async () => {
-  if (!player) {
-    conspect.textContent = "Плеєр ще не готовий!";
-    return;
-  }
 
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-  conspect.textContent = "Генерація конспекту...";
+// ------------------- Gemini Chat -------------------
+const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+const sendBtn = document.getElementById('sendBtn');
+const clearBtn = document.getElementById('clearBtn');
+const inputBox = document.getElementById('msg');
+const chatMessages = document.getElementById('chat-messages');
+
+let generating = false;
+
+// Завантаження історії
+window.addEventListener("load", () => {
+  const history = localStorage.getItem('chatHistory');
+  if (history) chatMessages.innerHTML = history;
+});
+
+// ------------------- Функції -------------------
+async function sendMessage(prompt) {
+  if (!prompt || generating) return;
+  generating = true;
+
+  const userMsg = createMsg(prompt, 'user');
+  chatMessages.appendChild(userMsg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  inputBox.value = '';
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
-      }
-    );
+    const result = await model.generateContent(prompt);
 
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
+    const botMsg = createMsg(result.response.text(), '');
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    conspect.innerHTML = text.replace(/\n/g, "<br>");
+    localStorage.setItem('chatHistory', chatMessages.innerHTML);
   } catch (err) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
     console.error(err);
   }
+
+  generating = false;
+}
+
+// Створення повідомлення з анімацією fadeIn
+function createMsg(text, userClass) {
+  const msg = document.createElement('div');
+  msg.classList.add('msg');
+  if (userClass) msg.classList.add(userClass);
+  msg.textContent = text;
+
+  msg.offsetWidth; 
+  msg.style.animation = 'fadeIn 0.3s forwards';
+
+  return msg;
+}
+
+// Події
+sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
+
+inputBox.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendMessage(inputBox.value);
+});
+
+clearBtn.addEventListener('click', () => {
+  chatMessages.innerHTML = '';
+  localStorage.removeItem('chatHistory');
 });
