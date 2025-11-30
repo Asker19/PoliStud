@@ -24,43 +24,66 @@ window.onYouTubeIframeAPIReady = function() {
   });
 }
 
+const conspectBtn = document.getElementById("genconspectbutton");
+const pdf = document.getElementById("pdf");
+
+conspectBtn.addEventListener("click", () => {
+  pdf.style.display = "block";   // показує PDF
+  conspectBtn.style.display = "none"; // ховає кнопку
+});
+
 // теж можна глобально, але не обов'язково
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
 
+const initialVideoId = '8s5OEx9xJBo'; // твоє початкове відео
+const initialThemeId = 'theme1';      // тема для початкового відео
+
 document.querySelectorAll(".video-btn").forEach(btn => {
-  const id = btn.dataset.video;
-  const title = btn.dataset.title;
+    const id = btn.dataset.video;
+    const title = btn.dataset.title;
 
-  const img = document.createElement("img");
-  img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    const img = document.createElement("img");
+    img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
-  const span = document.createElement("span");
-  span.textContent = title;
+    const span = document.createElement("span");
+    span.textContent = title;
 
-  btn.appendChild(img);
-  btn.appendChild(span);
+    btn.appendChild(img);
+    btn.appendChild(span);
 
-  btn.addEventListener("click", () => {
-    const currentVideoId = player.getVideoData().video_id;
-    const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
+    btn.addEventListener("click", () => {
+        const currentVideoId = player.getVideoData().video_id;
+        const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
+        const newVideoId = btn.dataset.video;
 
-    const newVideoId = btn.dataset.video;
+        player.loadVideoById(newVideoId);
 
-    player.loadVideoById(newVideoId);
+        btn.dataset.video = currentVideoId;
+        btn.dataset.title = currentVideoTitle;
 
-    btn.dataset.video = currentVideoId;
-    btn.dataset.title = currentVideoTitle;
+        img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
+        span.textContent = currentVideoTitle;
 
-    const img = btn.querySelector("img");
-    img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
+        // -------------------------
+        // Тема
+        document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
-    const span = btn.querySelector("span");
-    span.textContent = currentVideoTitle;
-  });
+        let themeId = btn.dataset.theme;
+
+        // Якщо це початкове відео (повернення), показуємо початкову тему
+        if (newVideoId === initialVideoId) themeId = initialThemeId;
+
+        if (themeId) {
+            const theme = document.getElementById(themeId);
+            if (theme) theme.style.display = "block";
+        }
+        // -------------------------
+    });
 });
+
 
 
 
