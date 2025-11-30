@@ -146,6 +146,6 @@ clearBtn.addEventListener('click', () => {
 
 const botMsg = document.createElement('div');
 botMsg.classList.add('msg');
-botMsg.textContent = "Я - вбудований чат-помічник, чим я можу допомогти?";
+botMsg.textContent = 'Я - вбудований чат-помічник, чим я можу допомогти?';
 chatMessages.appendChild(botMsg);
 chatMessages.scrollTop = chatMessages.scrollHeight;
