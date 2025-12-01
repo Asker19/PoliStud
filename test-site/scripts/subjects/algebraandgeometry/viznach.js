@@ -43,8 +43,6 @@ function onPlayerReady(event) {
 const initialVideoId = '8s5OEx9xJBo';
 const initialThemeId = 'theme1';
 
-
-
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
     const title = btn.dataset.title;

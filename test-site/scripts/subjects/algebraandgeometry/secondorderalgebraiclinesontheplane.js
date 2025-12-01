@@ -16,6 +16,14 @@ backButton.addEventListener("click", () => {
   window.history.back();
 });
 
+const conspectBtn = document.getElementById("genconspectbutton");
+const pdf = document.getElementById("pdf");
+
+conspectBtn.addEventListener("click", () => {
+  pdf.style.display = "block";  
+  conspectBtn.style.display = "none"; 
+});
+
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '467',
@@ -31,6 +39,9 @@ function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
+
+const initialVideoId = 'pQSlT1NLELs';
+const initialThemeId = 'theme1';
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
