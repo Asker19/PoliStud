@@ -20,8 +20,8 @@ const conspectBtn = document.getElementById("genconspectbutton");
 const pdf = document.getElementById("pdf");
 
 conspectBtn.addEventListener("click", () => {
-  pdf.style.display = "block";   // показує PDF
-  conspectBtn.style.display = "none"; // ховає кнопку
+  pdf.style.display = "block";  
+  conspectBtn.style.display = "none"; 
 });
 
 function onYouTubeIframeAPIReady() {
@@ -120,7 +120,6 @@ async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
-  // юзер повідомлення
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -134,7 +133,6 @@ async function sendMessage(prompt) {
     const result = await model.generateContent(prompt);
     const botText = result.response.text();
 
-    // бот повідомлення
     const botMsg = createMsg(botText, 'bot');
     chatMessages.appendChild(botMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -149,12 +147,12 @@ async function sendMessage(prompt) {
   generating = false;
 }
 
-// ------------------- Збереження -------------------
+
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
 
-// ------------------- Створення елементів -------------------
+
 function createMsg(text, type) {
   const msg = document.createElement('div');
   msg.classList.add('msg', type);
@@ -166,12 +164,14 @@ function createMsg(text, type) {
   return msg;
 }
 
-// ------------------- Події -------------------
+
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
+
 
 inputBox.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage(inputBox.value);
 });
+
 
 clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
