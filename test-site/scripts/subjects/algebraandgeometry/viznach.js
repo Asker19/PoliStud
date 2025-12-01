@@ -1,5 +1,5 @@
-// ------------------- YouTube -------------------
 const toMainButton = document.getElementById("mainbutton");
+const backButton = document.getElementById("backbtn");
 
 let tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
@@ -12,17 +12,9 @@ toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
 });
 
-// робимо глобальною
-window.onYouTubeIframeAPIReady = function() {
-  player = new YT.Player('player', {
-    height: '467',
-    width: '830',
-    videoId: '8s5OEx9xJBo', // початкове відео
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-}
+backButton.addEventListener("click", () => { 
+  window.history.back();
+});
 
 const conspectBtn = document.getElementById("genconspectbutton");
 const pdf = document.getElementById("pdf");
@@ -32,14 +24,26 @@ conspectBtn.addEventListener("click", () => {
   conspectBtn.style.display = "none"; // ховає кнопку
 });
 
-// теж можна глобально, але не обов'язково
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '467',
+    width: '830',
+    videoId: '8s5OEx9xJBo',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
 
-const initialVideoId = '8s5OEx9xJBo'; // твоє початкове відео
-const initialThemeId = 'theme1';      // тема для початкового відео
+const initialVideoId = '8s5OEx9xJBo';
+const initialThemeId = 'theme1';
+
+
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
@@ -67,20 +71,16 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
         span.textContent = currentVideoTitle;
 
-        // -------------------------
-        // Тема
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
 
-        // Якщо це початкове відео (повернення), показуємо початкову тему
         if (newVideoId === initialVideoId) themeId = initialThemeId;
 
         if (themeId) {
             const theme = document.getElementById(themeId);
             if (theme) theme.style.display = "block";
         }
-        // -------------------------
     });
 });
 
@@ -89,7 +89,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-// ------------------- Gemini Chat -------------------
 const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
@@ -101,10 +100,8 @@ const chatMessages = document.getElementById('chat-messages');
 
 let generating = false;
 
-// ------------------- ІСТОРІЯ ЧАТУ (JSON) -------------------
 let history = [];
 
-// Завантаження
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
@@ -118,7 +115,7 @@ window.addEventListener("load", () => {
   }
 });
 
-// ------------------- Відправка -------------------
+
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
