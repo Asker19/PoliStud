@@ -1,5 +1,5 @@
-// ------------------- YouTube -------------------
 const toMainButton = document.getElementById("mainbutton");
+const backButton = document.getElementById("backbtn");
 
 let tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
@@ -12,27 +12,29 @@ toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
 });
 
-// робимо глобальною
-window.onYouTubeIframeAPIReady = function() {
+backButton.addEventListener("click", () => { 
+  window.history.back();
+});
+
+const conspectBtn = document.getElementById("genconspectbutton");
+const pdf = document.getElementById("pdf");
+
+conspectBtn.addEventListener("click", () => {
+  pdf.style.display = "block";  
+  conspectBtn.style.display = "none"; 
+});
+
+function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '467',
     width: '830',
-    videoId: '8s5OEx9xJBo', // початкове відео
+    videoId: '8s5OEx9xJBo',
     events: {
       'onReady': onPlayerReady
     }
   });
 }
 
-const conspectBtn = document.getElementById("genconspectbutton");
-const pdf = document.getElementById("pdf");
-
-conspectBtn.addEventListener("click", () => {
-  pdf.style.display = "block";   // показує PDF
-  conspectBtn.style.display = "none"; // ховає кнопку
-});
-
-// теж можна глобально, але не обов'язково
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
@@ -67,17 +69,16 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
         span.textContent = currentVideoTitle;
 
-        // ------------------------- Тема -------------------------
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
+
         if (newVideoId === initialVideoId) themeId = initialThemeId;
 
         if (themeId) {
             const theme = document.getElementById(themeId);
             if (theme) theme.style.display = "block";
         }
-        // ---------------------------------------------------------
     });
 });
 
@@ -98,7 +99,6 @@ const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
 
-// ------------------- ІСТОРІЯ ЧАТУ -------------------
 let history = [];
 
 function hidePlaceholder() {
@@ -125,14 +125,15 @@ window.addEventListener("load", () => {
 });
 
 
-// ------------------- Відправка -------------------
+
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
   hidePlaceholder();
 
-  // юзер повідомлення
+  hidePlaceholder();
+
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -161,13 +162,13 @@ async function sendMessage(prompt) {
 }
 
 
-// ------------------- Збереження -------------------
+
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
 
 
-// ------------------- Створення елементів -------------------
+
 function createMsg(text, type) {
   const msg = document.createElement('div');
   msg.classList.add('msg', type);
@@ -180,12 +181,14 @@ function createMsg(text, type) {
 }
 
 
-// ------------------- Події -------------------
+
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
+
 
 inputBox.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage(inputBox.value);
 });
+
 
 clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
