@@ -38,8 +38,8 @@ function onPlayerReady(event) {
   event.target.setVolume(30);
 }
 
-const initialVideoId = '8s5OEx9xJBo'; // твоє початкове відео
-const initialThemeId = 'theme1';      // тема для початкового відео
+const initialVideoId = '8s5OEx9xJBo';
+const initialThemeId = 'theme1';
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
@@ -67,29 +67,25 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
         span.textContent = currentVideoTitle;
 
-        // -------------------------
-        // Тема
+        // ------------------------- Тема -------------------------
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
-
-        // Якщо це початкове відео (повернення), показуємо початкову тему
         if (newVideoId === initialVideoId) themeId = initialThemeId;
 
         if (themeId) {
             const theme = document.getElementById(themeId);
             if (theme) theme.style.display = "block";
         }
-        // -------------------------
+        // ---------------------------------------------------------
     });
 });
 
 
 
-
+// ------------------- Gemini Chat -------------------
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-// ------------------- Gemini Chat -------------------
 const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
@@ -98,18 +94,28 @@ const sendBtn = document.getElementById('sendBtn');
 const clearBtn = document.getElementById('clearBtn');
 const inputBox = document.getElementById('msg');
 const chatMessages = document.getElementById('chat-messages');
+const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
 
-// ------------------- ІСТОРІЯ ЧАТУ (JSON) -------------------
+// ------------------- ІСТОРІЯ ЧАТУ -------------------
 let history = [];
 
-// Завантаження
+function hidePlaceholder() {
+  if (placeholder) placeholder.style.display = "none";
+}
+
+function showPlaceholder() {
+  if (placeholder) placeholder.style.display = "block";
+}
+
+// Завантаження історії
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
   if (saved) {
     history = JSON.parse(saved);
+    if (history.length > 0) hidePlaceholder();
 
     history.forEach(msg => {
       const el = createMsg(msg.text, msg.type);
@@ -118,10 +124,13 @@ window.addEventListener("load", () => {
   }
 });
 
+
 // ------------------- Відправка -------------------
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
+
+  hidePlaceholder();
 
   // юзер повідомлення
   const userMsg = createMsg(prompt, 'user');
@@ -137,7 +146,6 @@ async function sendMessage(prompt) {
     const result = await model.generateContent(prompt);
     const botText = result.response.text();
 
-    // бот повідомлення
     const botMsg = createMsg(botText, 'bot');
     chatMessages.appendChild(botMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -152,10 +160,12 @@ async function sendMessage(prompt) {
   generating = false;
 }
 
+
 // ------------------- Збереження -------------------
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
+
 
 // ------------------- Створення елементів -------------------
 function createMsg(text, type) {
@@ -169,6 +179,7 @@ function createMsg(text, type) {
   return msg;
 }
 
+
 // ------------------- Події -------------------
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
 
@@ -180,4 +191,5 @@ clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
   history = [];
   localStorage.removeItem('chatHistory');
+  showPlaceholder();
 });
