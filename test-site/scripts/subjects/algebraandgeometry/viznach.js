@@ -1,3 +1,4 @@
+
 const toMainButton = document.getElementById("mainbutton");
 
 let tag = document.createElement('script');
@@ -11,8 +12,8 @@ toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
 });
 
-const conspectBtn = document.getElementById("genconspectbutton");
-const pdf = document.getElementById("pdf");
+conspectBtn = document.getElementById("genconspectbutton");
+pdf = document.getElementById("pdf");
 
 conspectBtn.addEventListener("click", () => {
   pdf.style.display = "block";  
@@ -23,12 +24,20 @@ window.onYouTubeIframeAPIReady = function () {
   player = new YT.Player('player', {
     height: '467',
     width: '830',
-    videoId: '8s5OEx9xJBo',
+    videoId: '8s5OEx9xJBo', // початкове відео
     events: {
       'onReady': onPlayerReady
     }
   });
 };
+
+const conspectBtn = document.getElementById("genconspectbutton");
+const pdf = document.getElementById("pdf");
+
+conspectBtn.addEventListener("click", () => {
+  pdf.style.display = "block";
+  conspectBtn.style.display = "none"; 
+});
 
 function onPlayerReady(event) {
   event.target.pauseVideo();
@@ -67,7 +76,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
-
         if (newVideoId === initialVideoId) themeId = initialThemeId;
 
         if (themeId) {
@@ -76,7 +84,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         }
     });
 });
-
 
 
 
@@ -90,16 +97,26 @@ const sendBtn = document.getElementById('sendBtn');
 const clearBtn = document.getElementById('clearBtn');
 const inputBox = document.getElementById('msg');
 const chatMessages = document.getElementById('chat-messages');
+const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
 
 let history = [];
+
+function hidePlaceholder() {
+  if (placeholder) placeholder.style.display = "none";
+}
+
+function showPlaceholder() {
+  if (placeholder) placeholder.style.display = "block";
+}
 
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
   if (saved) {
     history = JSON.parse(saved);
+    if (history.length > 0) hidePlaceholder();
 
     history.forEach(msg => {
       const el = createMsg(msg.text, msg.type);
@@ -108,10 +125,11 @@ window.addEventListener("load", () => {
   }
 });
 
-
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
+
+  hidePlaceholder();
 
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
@@ -145,7 +163,6 @@ function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
 
-
 function createMsg(text, type) {
   const msg = document.createElement('div');
   msg.classList.add('msg', type);
@@ -157,17 +174,15 @@ function createMsg(text, type) {
   return msg;
 }
 
-
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
-
 
 inputBox.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage(inputBox.value);
 });
 
-
 clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
   history = [];
   localStorage.removeItem('chatHistory');
+  showPlaceholder();
 });
