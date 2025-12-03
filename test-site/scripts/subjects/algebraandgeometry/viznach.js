@@ -24,6 +24,19 @@ toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
 });
 
+
+
+window.onYouTubeIframeAPIReady = function() {
+  player = new YT.Player('player', {
+    height: '467',
+    width: '830',
+    videoId: '8s5OEx9xJBo',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
 const conspectBtn = document.getElementById("genconspectbutton");
 const pdf = document.getElementById("pdf");
 
@@ -32,6 +45,7 @@ conspectBtn.addEventListener("click", () => {
   conspectBtn.style.display = "none"; 
 });
 
+// теж можна глобально, але не обов'язково
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
@@ -65,6 +79,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
         span.textContent = currentVideoTitle;
 
+        // ------------------------- Тема -------------------------
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
@@ -74,6 +89,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
             const theme = document.getElementById(themeId);
             if (theme) theme.style.display = "block";
         }
+        // ---------------------------------------------------------
     });
 });
 
@@ -101,6 +117,7 @@ function showPlaceholder() {
   if (placeholder) placeholder.style.display = "block";
 }
 
+// Завантаження історії
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
@@ -114,6 +131,8 @@ window.addEventListener("load", () => {
     });
   }
 });
+
+
 
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
@@ -152,6 +171,8 @@ function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
 
+
+
 function createMsg(text, type) {
   const msg = document.createElement('div');
   msg.classList.add('msg', type);
@@ -162,6 +183,7 @@ function createMsg(text, type) {
 
   return msg;
 }
+
 
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
 

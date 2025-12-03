@@ -78,6 +78,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 });
 
 
+
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";

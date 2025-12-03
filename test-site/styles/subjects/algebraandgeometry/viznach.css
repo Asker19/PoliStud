@@ -103,20 +103,6 @@
     transform: scale(1.04);
 }
 
-#user {
-    background-image: url("../../../images/user.png"); 
-    background-size: cover;      
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;               
-    font-size: 15px;
-    border: none;
-    border-radius: 18px;
-    width: 9vw;
-    height: 4vh;
-    margin: 0vh 1vw;
-}
-
 #backbtn {
     display: flex;
     align-items: center;
