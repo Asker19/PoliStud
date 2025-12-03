@@ -45,7 +45,6 @@ conspectBtn.addEventListener("click", () => {
   conspectBtn.style.display = "none"; 
 });
 
-// теж можна глобально, але не обов'язково
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
@@ -79,7 +78,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
         span.textContent = currentVideoTitle;
 
-        // ------------------------- Тема -------------------------
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
@@ -89,7 +87,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
             const theme = document.getElementById(themeId);
             if (theme) theme.style.display = "block";
         }
-        // ---------------------------------------------------------
     });
 });
 
@@ -109,21 +106,15 @@ const placeholder = document.getElementById('chat-placeholder');
 let generating = false;
 let history = [];
 
-function hidePlaceholder() {
-  if (placeholder) placeholder.style.display = "none";
-}
-
 function showPlaceholder() {
   if (placeholder) placeholder.style.display = "block";
 }
 
-// Завантаження історії
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
   if (saved) {
     history = JSON.parse(saved);
-    if (history.length > 0) hidePlaceholder();
 
     history.forEach(msg => {
       const el = createMsg(msg.text, msg.type);
@@ -132,13 +123,10 @@ window.addEventListener("load", () => {
   }
 });
 
-
-
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
-  hidePlaceholder();
 
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
@@ -171,8 +159,6 @@ function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
 
-
-
 function createMsg(text, type) {
   const msg = document.createElement('div');
   msg.classList.add('msg', type);
@@ -183,7 +169,6 @@ function createMsg(text, type) {
 
   return msg;
 }
-
 
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
 
