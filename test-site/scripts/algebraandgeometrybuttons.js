@@ -4,7 +4,6 @@
 // const aboutStudyButton = document.getElementById("aboutStudyButton");
 
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
 
 const determinatorsButton = document.getElementById("b1");
 const matrixesButton = document.getElementById("b2");
@@ -20,10 +19,6 @@ const secondGradePlanesInSpaceButton = document.getElementById("b9");
 
 toMainButton.addEventListener("click", () => {
   window.location.href = '../pages/main.html'
-});
-
-backButton.addEventListener("click", () => { 
-  window.history.back();
 });
 
 

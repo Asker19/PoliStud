@@ -4,7 +4,6 @@
 // const aboutStudyButton = document.getElementById("aboutStudyButton");
 
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
 
 const numberLogicsButton = document.getElementById("b1");
 const algorithmStructuresButton = document.getElementById("b2");
@@ -22,10 +21,6 @@ const classesandobjects = document.getElementById("b11");
 
 toMainButton.addEventListener("click", () => {
   window.location.href = '../pages/main.html'
-});
-
-backButton.addEventListener("click", () => { 
-  window.history.back();
 });
 
 
