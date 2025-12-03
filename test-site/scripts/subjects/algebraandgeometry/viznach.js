@@ -1,41 +1,34 @@
-
 const toMainButton = document.getElementById("mainbutton");
 
-let tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-let firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 let player;
+
+const initialVideoId = '8s5OEx9xJBo';
+const initialThemeId = 'theme1';
+
+window.onYouTubeIframeAPIReady = () => {
+  player = new YT.Player('player', {
+    height: '467',
+    width: '830',
+    videoId: '8s5OEx9xJBo',
+    events: {
+      onReady: onPlayerReady
+    }
+  });
+};
+
+const ytScript = document.createElement("script");
+ytScript.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(ytScript);
 
 toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
 });
 
-conspectBtn = document.getElementById("genconspectbutton");
-pdf = document.getElementById("pdf");
-
-conspectBtn.addEventListener("click", () => {
-  pdf.style.display = "block";  
-  conspectBtn.style.display = "none"; 
-});
-
-window.onYouTubeIframeAPIReady = function () {
-  player = new YT.Player('player', {
-    height: '467',
-    width: '830',
-    videoId: '8s5OEx9xJBo', // початкове відео
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-};
-
 const conspectBtn = document.getElementById("genconspectbutton");
 const pdf = document.getElementById("pdf");
 
 conspectBtn.addEventListener("click", () => {
-  pdf.style.display = "block";
+  pdf.style.display = "block";  
   conspectBtn.style.display = "none"; 
 });
 
@@ -44,8 +37,7 @@ function onPlayerReady(event) {
   event.target.setVolume(30);
 }
 
-const initialVideoId = '8s5OEx9xJBo';
-const initialThemeId = 'theme1';
+
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
@@ -86,7 +78,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 });
 
 
-
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
@@ -100,7 +91,6 @@ const chatMessages = document.getElementById('chat-messages');
 const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
-
 let history = [];
 
 function hidePlaceholder() {
@@ -157,7 +147,6 @@ async function sendMessage(prompt) {
 
   generating = false;
 }
-
 
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));

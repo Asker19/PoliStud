@@ -83,6 +83,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
 
 
+
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
@@ -93,10 +94,14 @@ const sendBtn = document.getElementById('sendBtn');
 const clearBtn = document.getElementById('clearBtn');
 const inputBox = document.getElementById('msg');
 const chatMessages = document.getElementById('chat-messages');
+const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
-
 let history = [];
+
+function showPlaceholder() {
+  if (placeholder) placeholder.style.display = "block";
+}
 
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
@@ -111,10 +116,10 @@ window.addEventListener("load", () => {
   }
 });
 
-
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
+
 
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
@@ -143,11 +148,9 @@ async function sendMessage(prompt) {
   generating = false;
 }
 
-
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
-
 
 function createMsg(text, type) {
   const msg = document.createElement('div');
@@ -160,18 +163,15 @@ function createMsg(text, type) {
   return msg;
 }
 
-
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
-
 
 inputBox.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage(inputBox.value);
 });
 
-
 clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
   history = [];
   localStorage.removeItem('chatHistory');
+  showPlaceholder();
 });
-
