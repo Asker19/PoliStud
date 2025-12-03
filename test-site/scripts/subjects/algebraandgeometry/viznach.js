@@ -1,4 +1,4 @@
-
+// ------------------- YouTube -------------------
 const toMainButton = document.getElementById("mainbutton");
 
 let tag = document.createElement('script');
@@ -12,15 +12,8 @@ toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
 });
 
-conspectBtn = document.getElementById("genconspectbutton");
-pdf = document.getElementById("pdf");
-
-conspectBtn.addEventListener("click", () => {
-  pdf.style.display = "block";  
-  conspectBtn.style.display = "none"; 
-});
-
-window.onYouTubeIframeAPIReady = function () {
+// робимо глобальною
+window.onYouTubeIframeAPIReady = function() {
   player = new YT.Player('player', {
     height: '467',
     width: '830',
@@ -29,16 +22,17 @@ window.onYouTubeIframeAPIReady = function () {
       'onReady': onPlayerReady
     }
   });
-};
+}
 
 const conspectBtn = document.getElementById("genconspectbutton");
 const pdf = document.getElementById("pdf");
 
 conspectBtn.addEventListener("click", () => {
-  pdf.style.display = "block";
-  conspectBtn.style.display = "none"; 
+  pdf.style.display = "block";   // показує PDF
+  conspectBtn.style.display = "none"; // ховає кнопку
 });
 
+// теж можна глобально, але не обов'язково
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
@@ -73,6 +67,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
         span.textContent = currentVideoTitle;
 
+        // ------------------------- Тема -------------------------
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
@@ -82,11 +77,13 @@ document.querySelectorAll(".video-btn").forEach(btn => {
             const theme = document.getElementById(themeId);
             if (theme) theme.style.display = "block";
         }
+        // ---------------------------------------------------------
     });
 });
 
 
 
+// ------------------- Gemini Chat -------------------
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
 const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
@@ -101,6 +98,7 @@ const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
 
+// ------------------- ІСТОРІЯ ЧАТУ -------------------
 let history = [];
 
 function hidePlaceholder() {
@@ -111,6 +109,7 @@ function showPlaceholder() {
   if (placeholder) placeholder.style.display = "block";
 }
 
+// Завантаження історії
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
@@ -125,12 +124,15 @@ window.addEventListener("load", () => {
   }
 });
 
+
+// ------------------- Відправка -------------------
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
   hidePlaceholder();
 
+  // юзер повідомлення
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -159,10 +161,13 @@ async function sendMessage(prompt) {
 }
 
 
+// ------------------- Збереження -------------------
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
 
+
+// ------------------- Створення елементів -------------------
 function createMsg(text, type) {
   const msg = document.createElement('div');
   msg.classList.add('msg', type);
@@ -174,6 +179,8 @@ function createMsg(text, type) {
   return msg;
 }
 
+
+// ------------------- Події -------------------
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
 
 inputBox.addEventListener('keydown', (e) => {
