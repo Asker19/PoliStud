@@ -1,5 +1,5 @@
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
+// const backButton = document.getElementById("backbtn");
 
 let tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
@@ -12,9 +12,9 @@ toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html'
 });
 
-backButton.addEventListener("click", () => { 
-  window.history.back();
-});
+// backButton.addEventListener("click", () => { 
+//   window.history.back();
+// });
 
 const conspectBtn = document.getElementById("genconspectbutton");
 const pdf = document.getElementById("pdf");

@@ -13,15 +13,18 @@
   <body>
     <div class="all">
       <aside class="sidebar">
-        <img src="../images/logo.png" id="logo" />
-        <h2 id="text2">Онлайн-помічник <br> Для студентів</h2>
-        <button id="user">User</button>
-        <button class="sbbuttons" id="mainbutton">Головна</button>
-        <button class="sbbuttons" id="ai">ШІ</button>
-        <button id="backbtn">
-          <img src="../images/arrowleft.png" alt="Назад" class="icon">
-          На попередню сторінку
-        </button>
+        <div id="logobox">
+          <img id="mainbutton" src="../images/logo.png" />
+          <h2 id="text2">Онлайн-помічник <br> Для студентів</h2>
+        </div>
+        <div id="chat-panel">
+           <div id="chat-messages"><div id="chat-placeholder">Чат-помічник</div></div>
+            <div id="input-box">
+              <input id="msg" placeholder="Чим можу допомогти?" />
+              <button id="sendBtn">Send</button>
+              <button id="clearBtn">Clear</button>
+            </div>
+        </div>
       </aside>
       <main class="content">
         <header class="header">
@@ -45,6 +48,6 @@
         </section>
       </main>
     </div>
-    <script src="../scripts/discretemathematicsbuttons.js"></script>
+    <script type="module" src="../scripts/discretemathematicsbuttons.js"></script>
   </body>
 </html>
