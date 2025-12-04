@@ -61,7 +61,7 @@ secondGradePlanesInSpaceButton.addEventListener("click", () => {
 
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-const API_KEY = "AIzaSyADuFw-qNX7O0Ev2aWlS0Fk9-TFfCf_oY4";
+const API_KEY = "AIzaSyDXxL4d_VljcLA_SxyMb6j69gMDpsOjfUo";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
