@@ -1,20 +1,27 @@
-
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
-
-let tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-let firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 let player;
 
-toMainButton.addEventListener("click", () => {
-  window.location.href = '../../../pages/main.html'
-});
+const initialVideoId = '4_1xAaqgWy4';
+const initialThemeId = 'theme1';
 
-backButton.addEventListener("click", () => { 
-  window.history.back();
+window.onYouTubeIframeAPIReady = () => {
+  player = new YT.Player('player', {
+    height: '467',
+    width: '830',
+    videoId: initialVideoId,
+    events: {
+      onReady: onPlayerReady
+    }
+  });
+};
+
+const ytScript = document.createElement("script");
+ytScript.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(ytScript);
+
+toMainButton.addEventListener("click", () => {
+  window.location.href = '../../../pages/main.html';
 });
 
 const conspectBtn = document.getElementById("genconspectbutton");
@@ -25,24 +32,12 @@ conspectBtn.addEventListener("click", () => {
   conspectBtn.style.display = "none"; 
 });
 
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '467',
-    width: '830',
-    videoId: '4_1xAaqgWy4',
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-}
-
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
 
-const initialVideoId = '4_1xAaqgWy4';
-const initialThemeId = 'theme1';
+
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
@@ -73,7 +68,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
-
         if (newVideoId === initialVideoId) themeId = initialThemeId;
 
         if (themeId) {
@@ -82,7 +76,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         }
     });
 });
-
 
 
 
@@ -96,10 +89,14 @@ const sendBtn = document.getElementById('sendBtn');
 const clearBtn = document.getElementById('clearBtn');
 const inputBox = document.getElementById('msg');
 const chatMessages = document.getElementById('chat-messages');
+const placeholder = document.getElementById('chat-placeholder');
 
 let generating = false;
-
 let history = [];
+
+function showPlaceholder() {
+  if (placeholder) placeholder.style.display = "block";
+}
 
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
@@ -114,10 +111,10 @@ window.addEventListener("load", () => {
   }
 });
 
-
 async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
+
 
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
@@ -146,11 +143,9 @@ async function sendMessage(prompt) {
   generating = false;
 }
 
-
 function saveHistory() {
   localStorage.setItem("chatHistory", JSON.stringify(history));
 }
-
 
 function createMsg(text, type) {
   const msg = document.createElement('div');
@@ -163,17 +158,15 @@ function createMsg(text, type) {
   return msg;
 }
 
-
 sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
-
 
 inputBox.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage(inputBox.value);
 });
 
-
 clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
   history = [];
   localStorage.removeItem('chatHistory');
+  showPlaceholder();
 });

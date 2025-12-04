@@ -1,19 +1,27 @@
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
-
-let tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-let firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 let player;
 
+const initialVideoId = 'BLIy6U7BJIU';
+const initialThemeId = 'theme1';
+
+window.onYouTubeIframeAPIReady = () => {
+  player = new YT.Player('player', {
+    height: '467',
+    width: '830',
+    videoId: initialVideoId,
+    events: {
+      onReady: onPlayerReady
+    }
+  });
+};
+
+const ytScript = document.createElement("script");
+ytScript.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(ytScript);
+
 toMainButton.addEventListener("click", () => {
   window.location.href = '../../../pages/main.html';
-});
-
-backButton.addEventListener("click", () => { 
-  window.history.back();
 });
 
 const conspectBtn = document.getElementById("genconspectbutton");
@@ -24,22 +32,12 @@ conspectBtn.addEventListener("click", () => {
   conspectBtn.style.display = "none"; 
 });
 
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '467',
-    width: '830',
-    videoId: 'BLIy6U7BJIU',
-    events: { 'onReady': onPlayerReady }
-  });
-}
-
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
 
-const initialVideoId = 'BLIy6U7BJIU';
-const initialThemeId = 'theme1';
+
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
@@ -70,7 +68,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
 
         let themeId = btn.dataset.theme;
-
         if (newVideoId === initialVideoId) themeId = initialThemeId;
 
         if (themeId) {
@@ -79,9 +76,6 @@ document.querySelectorAll(".video-btn").forEach(btn => {
         }
     });
 });
-
-
-
 
 
 
