@@ -62,12 +62,14 @@ workingwithfiles.addEventListener("click", () => {
 });
 
 structuresandassociacions.addEventListener("click", () => {
-  window.location.href = '../pages/subjects/algorithmizationandprogramming/structuresandassociacions.html';
+  window.location.href = '../pages/subjects/algorithmizationandprogramming/structuresandassociations.html';
 });
 
 classesandobjects.addEventListener("click", () => {
   window.location.href = '../pages/subjects/algorithmizationandprogramming/classesandobjects.html';
 });
+
+
 
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
