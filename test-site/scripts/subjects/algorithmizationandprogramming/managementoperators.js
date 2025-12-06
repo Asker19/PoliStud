@@ -95,7 +95,13 @@ let generating = false;
 let history = [];
 
 function showPlaceholder() {
-  if (placeholder) placeholder.style.display = "block";
+  if (placeholder && chatMessages.children.length === 0) {
+    placeholder.style.display = "block";
+  }
+}
+
+function hidePlaceholder() {
+  if (placeholder) placeholder.style.display = "none";
 }
 
 window.addEventListener("load", () => {
@@ -108,6 +114,13 @@ window.addEventListener("load", () => {
       const el = createMsg(msg.text, msg.type);
       chatMessages.appendChild(el);
     });
+
+    hidePlaceholder();
+
+  } else {
+    
+    showPlaceholder();
+  
   }
 });
 
