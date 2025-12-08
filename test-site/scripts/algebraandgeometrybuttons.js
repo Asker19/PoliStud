@@ -75,9 +75,18 @@ let generating = false;
 let history = [];
 
 function showPlaceholder() {
-  if (placeholder && chatMessages.children.length === 0) {
+  if (!placeholder) return;
+
+  const empty = history.length === 0;
+
+  if (empty) {
     placeholder.style.display = "block";
+  } else {
+    placeholder.style.display = "none";
   }
+}
+function hidePlaceholder() {
+  if (placeholder) placeholder.style.display = "none";
 }
 
 function hidePlaceholder() {
@@ -108,6 +117,7 @@ async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
+  hidePlaceholder();
 
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
@@ -161,5 +171,8 @@ clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
   history = [];
   localStorage.removeItem('chatHistory');
+
+  chatMessages.appendChild(placeholder);
+
   showPlaceholder();
 });
