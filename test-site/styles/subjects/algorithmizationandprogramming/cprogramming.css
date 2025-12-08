@@ -289,6 +289,8 @@
   padding: 10px;
   background: rgb(213, 212, 212);
   box-sizing: border-box;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 
@@ -299,6 +301,7 @@
   border: none;
   background: #bebebe;
   color: rgb(0, 0, 0);
+  min-width: 0;
 }
 
 #input-box button {
@@ -309,6 +312,7 @@
   color: white;
   cursor: pointer;
   border-radius: 15px;
+  flex-shrink: 0;
 }
 
 @keyframes fadeIn {
