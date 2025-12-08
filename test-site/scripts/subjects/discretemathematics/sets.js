@@ -37,7 +37,7 @@ function onPlayerReady(event) {
   event.target.setVolume(30);
 }
 
-
+ 
 
 document.querySelectorAll(".video-btn").forEach(btn => {
     const id = btn.dataset.video;
@@ -54,7 +54,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
     btn.addEventListener("click", () => {
         const currentVideoId = player.getVideoData().video_id;
-        const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
+        const currentVideoTitle = player.getVideoData().title || "Error: failed loading title.";
         const newVideoId = btn.dataset.video;
 
         player.loadVideoById(newVideoId);
