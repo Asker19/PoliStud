@@ -81,7 +81,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-const API_KEY = "AIzaSyDXxL4d_VljcLA_SxyMb6j69gMDpsOjfUo";
+const API_KEY = "AIzaSyAQUp-uSSMKYKLTITKpHJgMWp2_O7i7qVE";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
@@ -95,9 +95,18 @@ let generating = false;
 let history = [];
 
 function showPlaceholder() {
-  if (placeholder && chatMessages.children.length === 0) {
+  if (!placeholder) return;
+
+  const empty = history.length === 0;
+
+  if (empty) {
     placeholder.style.display = "block";
+  } else {
+    placeholder.style.display = "none";
   }
+}
+function hidePlaceholder() {
+  if (placeholder) placeholder.style.display = "none";
 }
 
 function hidePlaceholder() {
@@ -128,6 +137,7 @@ async function sendMessage(prompt) {
   if (!prompt || generating) return;
   generating = true;
 
+  hidePlaceholder();
 
   const userMsg = createMsg(prompt, 'user');
   chatMessages.appendChild(userMsg);
@@ -181,5 +191,8 @@ clearBtn.addEventListener('click', () => {
   chatMessages.innerHTML = '';
   history = [];
   localStorage.removeItem('chatHistory');
+
+  chatMessages.appendChild(placeholder);
+
   showPlaceholder();
 });
