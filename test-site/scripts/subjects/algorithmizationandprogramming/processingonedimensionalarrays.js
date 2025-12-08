@@ -1,101 +1,185 @@
-
 const toMainButton = document.getElementById("mainbutton");
-const backButton = document.getElementById("backbtn");
-
-let tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-let firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 let player;
 
-toMainButton.addEventListener("click", () => {
-  window.location.href = '../../../pages/main.html'
-});
+const initialVideoId = 'vE0R9NBXSCw';
+const initialThemeId = 'theme1';
 
-backButton.addEventListener("click", () => { 
-  window.history.back();
-});
-
-function onYouTubeIframeAPIReady() {
+window.onYouTubeIframeAPIReady = () => {
   player = new YT.Player('player', {
     height: '467',
     width: '830',
-    videoId: 'vE0R9NBXSCw',
+    videoId: initialVideoId,
     events: {
-      'onReady': onPlayerReady
+      onReady: onPlayerReady
     }
   });
-}
+};
+
+const ytScript = document.createElement("script");
+ytScript.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(ytScript);
+
+toMainButton.addEventListener("click", () => {
+  window.location.href = '../../../pages/main.html';
+});
+
+const conspectBtn = document.getElementById("genconspectbutton");
+const pdf = document.getElementById("pdf");
+
+conspectBtn.addEventListener("click", () => {
+  pdf.style.display = "block";  
+  conspectBtn.style.display = "none"; 
+});
 
 function onPlayerReady(event) {
   event.target.pauseVideo();
   event.target.setVolume(30);
 }
 
+
+
 document.querySelectorAll(".video-btn").forEach(btn => {
-  const id = btn.dataset.video;
-  const title = btn.dataset.title;
-  
-  const img = document.createElement("img");
-  img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    const id = btn.dataset.video;
+    const title = btn.dataset.title;
 
-  const span = document.createElement("span");
-  span.textContent = title;
+    const img = document.createElement("img");
+    img.src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
-  btn.appendChild(img);
-  btn.appendChild(span);
+    const span = document.createElement("span");
+    span.textContent = title;
 
-  btn.addEventListener("click", () => {
-    const currentVideoId = player.getVideoData().video_id;
-    const currentVideoTitle = player.getVideoData().title;
+    btn.appendChild(img);
+    btn.appendChild(span);
 
-    const newVideoId = btn.dataset.video;
+    btn.addEventListener("click", () => {
+        const currentVideoId = player.getVideoData().video_id;
+        const currentVideoTitle = player.getVideoData().title || "Error: failed loading title";
+        const newVideoId = btn.dataset.video;
 
-    player.loadVideoById(newVideoId);
+        player.loadVideoById(newVideoId);
 
-    btn.dataset.video = currentVideoId;
-    btn.dataset.title = currentVideoTitle;
+        btn.dataset.video = currentVideoId;
+        btn.dataset.title = currentVideoTitle;
 
-    const img = btn.querySelector("img");
-    img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
+        img.src = `https://img.youtube.com/vi/${currentVideoId}/hqdefault.jpg`;
+        span.textContent = currentVideoTitle;
 
-    const span = btn.querySelector("span");
-    span.textContent = currentVideoTitle;
-  });
+        document.querySelectorAll(".theme").forEach(t => t.style.display = "none");
+
+        let themeId = btn.dataset.theme;
+        if (newVideoId === initialVideoId) themeId = initialThemeId;
+
+        if (themeId) {
+            const theme = document.getElementById(themeId);
+            if (theme) theme.style.display = "block";
+        }
+    });
 });
 
-const genBtn = document.getElementById("genconspectbutton");
-const conspect = document.getElementById("conspect");
-const API_KEY = "AIzaSyAj5Ti6jeCDYTDKZldn0dRCKJBVtxv1r20";
 
-genBtn.addEventListener("click", async () => {
-  if (!player) {
-    conspect.textContent = "Плеєр ще не готовий!";
-    return;
+
+import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+const API_KEY = "AIzaSyDXxL4d_VljcLA_SxyMb6j69gMDpsOjfUo";
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+const sendBtn = document.getElementById('sendBtn');
+const clearBtn = document.getElementById('clearBtn');
+const inputBox = document.getElementById('msg');
+const chatMessages = document.getElementById('chat-messages');
+const placeholder = document.getElementById('chat-placeholder');
+
+let generating = false;
+let history = [];
+
+function showPlaceholder() {
+  if (placeholder && chatMessages.children.length === 0) {
+    placeholder.style.display = "block";
   }
+}
 
-  const currentVideoId = player.getVideoData().video_id;
-  const videoUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
+function hidePlaceholder() {
+  if (placeholder) placeholder.style.display = "none";
+}
 
-  conspect.textContent = "Генерація конспекту...";
+window.addEventListener("load", () => {
+  const saved = localStorage.getItem('chatHistory');
+
+  if (saved) {
+    history = JSON.parse(saved);
+
+    history.forEach(msg => {
+      const el = createMsg(msg.text, msg.type);
+      chatMessages.appendChild(el);
+    });
+
+    hidePlaceholder();
+
+  } else {
+    
+    showPlaceholder();
+  
+  }
+});
+
+async function sendMessage(prompt) {
+  if (!prompt || generating) return;
+  generating = true;
+
+
+  const userMsg = createMsg(prompt, 'user');
+  chatMessages.appendChild(userMsg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  history.push({ text: prompt, type: "user" });
+  saveHistory();
+
+  inputBox.value = '';
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({contents: [{parts: [{text: `Проаналізуй це відео: ${videoUrl}\nЗроби детальний конспект українською мовою з пунктами та поясненнями.`}]}]})
-      }
-    );
+    const result = await model.generateContent(prompt);
+    const botText = result.response.text();
 
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Помилка: пустий результат";
+    const botMsg = createMsg(botText, 'bot');
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    conspect.innerHTML = text.replace(/\n/g, "<br>");
+    history.push({ text: botText, type: "bot" });
+    saveHistory();
+
   } catch (err) {
-    conspect.textContent = "Помилка під час генерації конспекту.";
     console.error(err);
   }
+
+  generating = false;
+}
+
+function saveHistory() {
+  localStorage.setItem("chatHistory", JSON.stringify(history));
+}
+
+function createMsg(text, type) {
+  const msg = document.createElement('div');
+  msg.classList.add('msg', type);
+  msg.textContent = text;
+
+  msg.offsetWidth;
+  msg.style.animation = 'fadeIn 0.3s forwards';
+
+  return msg;
+}
+
+sendBtn.addEventListener('click', () => sendMessage(inputBox.value));
+
+inputBox.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendMessage(inputBox.value);
+});
+
+clearBtn.addEventListener('click', () => {
+  chatMessages.innerHTML = '';
+  history = [];
+  localStorage.removeItem('chatHistory');
+  showPlaceholder();
 });

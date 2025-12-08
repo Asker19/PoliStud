@@ -20,7 +20,8 @@
     background-color: #A2B4D7;
     width: 100%;
     height: 70px;
-    align-items: center;   
+    align-items: center;
+    /* border-radius: 30px; */
 }
 
 #mpname{
@@ -61,22 +62,28 @@
     height: 100vh;    
     background-color: #fff; 
     z-index: 100;
+    justify-content: center;
+    align-items: center;
 }
 
-#logo {
+#logobox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#mainbutton {
     width: 5vw;
     height: auto;
-    margin: 1vh 0.5vw;
+    margin: 1.3vh 0.5vw;
 }
 
 #text2 {
     font-size: 18px;
     color: black;
-    padding: 1vh 0.5vw;
-}
-
-#mainbutton {
-    margin-top: 5vh;
+    margin-bottom: 1vh;
+    margin-left: 1vw;
+    margin-right: 3vw;
 }
 
 .sbbuttons {
@@ -94,20 +101,6 @@
 
 .sbbuttons:hover { 
     transform: scale(1.04);
-}
-
-#user {
-    background-image: url("../../../images/user.png"); 
-    background-size: cover;      
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;               
-    font-size: 15px;
-    border: none;
-    border-radius: 18px;
-    width: 9vw;
-    height: 4vh;
-    margin: 0vh 1vw;
 }
 
 #backbtn {
@@ -207,9 +200,16 @@
     flex-direction: column;
     box-sizing: border-box;
     padding: 3vh 2vw;
+    gap: 3vh
 }   
 
-#genconspectbutton {
+#pdf{
+    height: 133vh;
+    border-radius: 15px;
+    display: none;
+}
+
+ #genconspectbutton {
     border: none;
     border-radius: 25px;
     margin-top: 1px;
@@ -218,19 +218,130 @@
     background-color: #041A54;
     color: white;
     font-size: 15px;
-    width: 12.5vw;
+    width: 9.5vw;
     height: 5.5vh;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 #genconspectbutton:hover {
     transform: scale(1.04);
-}
+} 
 
-#conspect {
+.theme {
     margin-top: 3vh;
-    font-size: 15px;
+    font-size: 20px;
     color: black;
     overflow-wrap: break-word;
     white-space: normal;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-left: 2.5vw;
+}
+
+#theme1 {
+    display: block;
+}
+
+#theme2 {
+    display: none;
+}
+
+#theme3 {
+    display: none;
+}
+
+#chat-panel {
+  width: 98%;
+  height: 98%;
+  background: rgb(213, 212, 212);
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+#chat-messages {
+  flex: 1; 
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.msg {
+  padding: 10px;
+  margin: 6px;
+  border-radius: 10px;
+  max-width: 80%;
+  animation: fadeIn 0.3s forwards;
+  font-family: Arial;
+}
+
+.msg.user {
+  background: #c8d2e8;
+  align-self: flex-end;
+}
+
+.msg.bot {
+  background: #a4b6dc;
+  align-self: flex-start;
+}
+
+#input-box {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: rgb(213, 212, 212);
+  box-sizing: border-box;
+}
+
+
+#input-box input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 15px;
+  border: none;
+  background: #bebebe;
+  color: rgb(0, 0, 0);
+}
+
+#input-box button {
+  padding: 8px 14px;
+  background: #041A54;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#chat-messages {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+    color: #555;
+    opacity: 0.7;
+    font-size: 20px;
+    pointer-events: none;
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
 }

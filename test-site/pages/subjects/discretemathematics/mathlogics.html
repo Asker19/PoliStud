@@ -13,43 +13,56 @@
   <body>
     <div class="all">
       <aside class="sidebar">
-        <img src="../../../images/logo.png" id="logo" />
-        <h2 id="text2">Онлайн-помічник <br> Для студентів</h2>
-        <button id="user">User</button>
-        <button class="sbbuttons" id="mainbutton">Головна</button>
-        <button class="sbbuttons" id="ai">ШІ</button>
-        <button id="backbtn">
-          <img src="../../../images/arrowleft.png" alt="Назад" class="icon">
-          На попередню сторінку
-        </button>
+        <div id="logobox">
+          <img id="mainbutton" src="../../../images/logo.png" />
+          <h2 id="text2">Онлайн-помічник <br> Для студентів</h2>
+        </div>
+        <div id="chat-panel">
+           <div id="chat-messages"><div id="chat-placeholder">Чат-помічник</div></div>
+            <div id="input-box">
+              <input id="msg" placeholder="Чим можу допомогти?" />
+              <button id="sendBtn">Send</button>
+              <button id="clearBtn">Clear</button>
+            </div>
+        </div>
       </aside>
       <main class="content">
         <header class="header">
           <h1 id="mpname">Математична логіка. Булеві функції</h1>
-          <a href="../../../sources/aboutus.pdf" target="_blank" id="aboutus">Про нас</a>
-          <a href="../../../sources/abouteducation.pdf" target="_blank" id="abouted">Про навчання</a>
+          <a href="../../../sources/aboutus.pdf" target="_blank" id="aboutus">Про нас.pdf</a>
+          <a href="../../../sources/abouteducation.pdf" target="_blank" id="abouted">Про навчання.pdf</a>
         </header>
         <div class="inside">
           <section class="mainpl">
             <div id="player"></div>
-            <div id="genconspectback">
-              <button id="genconspectbutton">Згенерувати конспект</button>
-              <div id="conspect"></div>
+              <h3 class="theme" id="theme1">Введення в булеві функції</h3>
+              <h3 class="theme" id="theme2">Представлення булевих функцій: форми, методи</h3>
+              <h3 class="theme" id="theme3">Означення, кількість, одновимірні/багатовимірні</h3>
+              <h3 class="theme" id="theme4">Представлення булевих функцій: ДНФ, КНФ, досконалі форми</h3>
+              <h3 class="theme" id="theme5">Практика: мінімізація булевих функцій, методи</h3>
+              <div id="genconspectback">
+                <button id="genconspectbutton">Конспект</button>
+                <object 
+                data="../../../sources/Математична_логіка_Булеві_функції.pdf" 
+                id="pdf"
+                type="application/pdf"
+                >
+                </object>
             </div>
           </section>
           <aside class="insidebar">
-              <button class="video-btn" data-video="35et-mSJvMQ" data-title="Логічні (булеві) функції та способи її представлення">
+              <button class="video-btn" data-video="35et-mSJvMQ" data-title="Логічні (булеві) функції та способи її представлення" data-theme="theme2">
               </button>
-              <button class="video-btn" data-video="5Tt5HJ2Th9c" data-title="Дискретна математика, лекція 14-1: булеві функції та операції">
+              <button class="video-btn" data-video="5Tt5HJ2Th9c" data-title="Дискретна математика, лекція 14-1: булеві функції та операції" data-theme="theme3">
               </button>
-              <button class="video-btn" data-video="8YDsPgRHdzQ" data-title="Досконалі форми булевих функцій">
+              <button class="video-btn" data-video="8YDsPgRHdzQ" data-title="Досконалі форми булевих функцій" data-theme="theme4">
               </button>
-              <button class="video-btn" data-video="HqVwMZUv4r8" data-title="Булеві функції Практика 1">
+              <button class="video-btn" data-video="HqVwMZUv4r8" data-title="Булеві функції Практика 1" data-theme="theme5">
               </button>
           </aside>
         </div>
       </main>
     </div>
-    <script src="../../../scripts/subjects/discretemathematics/mathlogics.js"></script>
+    <script type="module" src="../../../scripts/subjects/discretemathematics/mathlogics.js"></script>
   </body>
 </html>
