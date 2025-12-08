@@ -93,7 +93,7 @@ document.querySelectorAll(".video-btn").forEach(btn => {
 
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-const API_KEY = "AIzaSyDXxL4d_VljcLA_SxyMb6j69gMDpsOjfUo";
+const API_KEY = "AIzaSyAQUp-uSSMKYKLTITKpHJgMWp2_O7i7qVE";
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
