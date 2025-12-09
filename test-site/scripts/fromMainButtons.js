@@ -55,6 +55,7 @@ function showPlaceholder() {
     placeholder.style.display = "none";
   }
 }
+
 function hidePlaceholder() {
   if (placeholder) placeholder.style.display = "none";
 }

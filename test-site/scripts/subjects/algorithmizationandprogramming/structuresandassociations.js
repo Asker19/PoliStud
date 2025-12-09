@@ -110,10 +110,6 @@ function hidePlaceholder() {
   if (placeholder) placeholder.style.display = "none";
 }
 
-function hidePlaceholder() {
-  if (placeholder) placeholder.style.display = "none";
-}
-
 window.addEventListener("load", () => {
   const saved = localStorage.getItem('chatHistory');
 
