@@ -2,10 +2,9 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/pages/practh.html"
+      "destination": "/index.html"
     }
   ],
   "cleanUrls": false,
   "trailingSlash": false
 }
-

@@ -12,21 +12,21 @@ const discreteMathButton = document.getElementById("discreteMathButton");
 
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../pages/index.html'
+  window.location.href = 'index.html'
 });
 
 
 
 algebraAndGeometry.addEventListener("click", () => {
-  window.location.href = '../pages/algebraandgeometry.html'
+  window.location.href = 'pages/algebraandgeometry.html'
 });
 
 algorithmizationButton.addEventListener("click", () => {
-  window.location.href = '../pages/algorithmizationandprogramming.html'
+  window.location.href = 'pages/algorithmizationandprogramming.html'
 });
 
 discreteMathButton.addEventListener("click", () => {
-  window.location.href = '../pages/discretemathematics.html'
+  window.location.href = 'pages/discretemathematics.html'
 });
 
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";

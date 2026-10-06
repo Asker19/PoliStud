@@ -21,7 +21,7 @@ ytScript.src = "https://www.youtube.com/iframe_api";
 document.body.appendChild(ytScript);
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../../../pages/index.html';
+  window.location.href = '../../../index.html';
 });
 
 

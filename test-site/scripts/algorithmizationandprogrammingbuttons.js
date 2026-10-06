@@ -20,7 +20,7 @@ const classesandobjects = document.getElementById("b11");
 
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../pages/index.html'
+  window.location.href = '../index.html'
 });
 
 
