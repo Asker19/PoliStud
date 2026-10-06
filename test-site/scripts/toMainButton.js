@@ -1,7 +1,7 @@
 const button = document.getElementById("enterButton");
 
 button.addEventListener("click", () => {
-  window.location.href = '../pages/main.html'
+  window.location.href = '../pages/index.html'
 });
 
 // No registration yet

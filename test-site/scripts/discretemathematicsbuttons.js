@@ -13,7 +13,7 @@ const setTheoryButton = document.getElementById("setsbtn");
 
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../pages/main.html'
+  window.location.href = '../pages/index.html'
 });
 
 

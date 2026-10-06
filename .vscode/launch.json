@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open main.html",
-            "file": "d:\\VSCode\\folder\\PoliStud\\PoliStud\\test-site\\pages\\main.html"
+            "name": "Open index.html",
+            "file": "d:\\VSCode\\folder\\PoliStud\\PoliStud\\test-site\\pages\\index.html"
         }
     ]
 }

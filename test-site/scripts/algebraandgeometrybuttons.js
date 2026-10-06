@@ -18,7 +18,7 @@ const secondGradePlanesInSpaceButton = document.getElementById("b9");
 
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../pages/main.html'
+  window.location.href = '../pages/index.html'
 });
 
 

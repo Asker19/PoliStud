@@ -12,7 +12,7 @@ const discreteMathButton = document.getElementById("discreteMathButton");
 
 
 toMainButton.addEventListener("click", () => {
-  window.location.href = '../pages/main.html'
+  window.location.href = '../pages/index.html'
 });
 
 
